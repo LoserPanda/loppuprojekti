@@ -1,66 +1,44 @@
 import React, {Component} from 'react';
 import './App.css';
 import '../node_modules/react-vis/dist/style.css';
-import {XYPlot, LineSeries, VerticalBarSeries, MarkSeries} from 'react-vis';
+import Chart from './components/chart';
+
+// tähän tulokset jsonmuodossa palvelimelta
+const API_URL = "https://nataliia-radina.github.io/react-vis-example/";
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            results: [],
+        };
+    }
+
+    componentDidMount() {
+        fetch(API_URL)
+            .then(response => {
+                if (response.ok) {
+                    return response.json()
+                }
+                else {
+                    throw new Error('something went wrong')
+                }
+            })
+            //suodatetaan tulokset (jos halutaan?)
+            .then(response => this.setState({
+                    results: response.results.filter((r) => {
+                        return r.name === 'Python'
+                    })
+                })
+            )
+    }
+
     render() {
-        const series1 = [
-            {x: 0, y: 6},
-            {x: 1, y: 2},
-            {x: 2, y: 1},
-            {x: 3, y: 9},
-            {x: 4, y: 3},
-            {x: 5, y: 4},
-            {x: 6, y: 7},
-            {x: 7, y: 9},
-            {x: 8, y: 9},
-            {x: 9, y: 3}
-        ];
-
-        const series2 = [
-            {x: 0, y: 12},
-            {x: 1, y: 30},
-            {x: 2, y: 12},
-            {x: 3, y: 9},
-            {x: 4, y: 3},
-            {x: 5, y: 4},
-            {x: 6, y: 9},
-            {x: 7, y: 19},
-            {x: 8, y: 19},
-            {x: 9, y: 11}
-        ];
-        const series3 = [
-            {x: 0, y: 3},
-            {x: 1, y: 6},
-            {x: 2, y: 9},
-            {x: 3, y: 12},
-            {x: 4, y: 15},
-            {x: 5, y: 18},
-            {x: 6, y: 21},
-            {x: 7, y: 24},
-            {x: 8, y: 27},
-            {x: 9, y: 30}
-        ];
-
+        const {results} = this.state;
 
         return (
             <div className="App">
-                <XYPlot height={200} width={300}>
-                    <VerticalBarSeries data={series1}/>
-                    <VerticalBarSeries data={series2}/>
-                    <VerticalBarSeries data={series3}/>
-                </XYPlot>
-                <XYPlot height={200} width={300}>
-                    <LineSeries data={series1}/>
-                    <LineSeries data={series2}/>
-                    <LineSeries data={series3}/>
-                </XYPlot>
-                <XYPlot height={200} width={300}>
-                    <MarkSeries data={series1}/>
-                    <MarkSeries data={series2}/>
-                    <MarkSeries data={series3}/>
-                </XYPlot>
+                <Chart data={results}/>
             </div>
         );
     }
