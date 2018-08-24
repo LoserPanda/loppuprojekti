@@ -4,7 +4,7 @@ import '../node_modules/react-vis/dist/style.css';
 import Chart from './components/chart';
 
 // tähän tulokset jsonmuodossa palvelimelta
-const API_URL = "https://nataliia-radina.github.io/react-vis-example/";
+const url = "https://nataliia-radina.github.io/react-vis-example/";
 
 class App extends Component {
     constructor(props) {
@@ -15,13 +15,13 @@ class App extends Component {
     }
 
     componentDidMount() {
-        fetch(API_URL)
+        fetch(url)
             .then(response => {
                 if (response.ok) {
                     return response.json()
                 }
                 else {
-                    throw new Error('well, this is awkward...')
+                    throw new Error('puutarhatonttu otti loparit')
                 }
             })
             //suodatetaan tulokset (jos halutaan?)

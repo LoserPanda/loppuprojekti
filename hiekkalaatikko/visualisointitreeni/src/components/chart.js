@@ -19,7 +19,7 @@ const Chart = (props) => {
             <YAxis title="Lukumäärä"/>
             <LineSeries
                 data={dataArr}
-                style={{stroke: 'violet', strokeWidth: 2}}/>
+                style={{stroke: 'purple', strokeWidth: 2}}/>
         </XYPlot>
     );
 }
