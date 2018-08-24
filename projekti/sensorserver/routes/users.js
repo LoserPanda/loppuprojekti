@@ -35,10 +35,12 @@ socket.on('connect', function () {
     console.log('connected to lan network port:3000');
     socket.on('serialdata', function (data) {
 	    console.log(data);
+	    console.log(typeof data);
 
 	    //TEE DATAN KÄSITTELY
-
-	    //Test insert with hard coded values
+        var dataHandled = data.split(" ");
+        console.log(dataHandled);
+        //Test insert with hard coded values
 	    con.query("INSERT INTO sensor (id, light, humidity, temp, moisture) VALUES (0, 80, 55.5, 30, 30)", (err)=>{
 	    	if(err) throw err;
 	    	console.log("Data send happily to MariaDb");
