@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-    XYPlot, XAxis, YAxis, VerticalGridLines,
-    HorizontalGridLines, LineSeries
-} from 'react-vis';
+import {XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, LineSeries} from 'react-vis';
 
 const Chart = (props) => {
     const dataArr = props.data.map((d) => {
@@ -14,8 +11,8 @@ const Chart = (props) => {
     return (
         <XYPlot
             xType="ordinal"
-            width={800}
-            height={400}>
+            width={1000}
+            height={500}>
             <VerticalGridLines/>
             <HorizontalGridLines/>
             <XAxis title="Aikaväli"/>

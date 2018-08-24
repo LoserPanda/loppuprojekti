@@ -27,7 +27,7 @@ class App extends Component {
             //suodatetaan tulokset (jos halutaan?)
             .then(response => this.setState({
                     results: response.results.filter((r) => {
-                        return r.name === 'Python'
+                        return r.name === 'Java'
                     })
                 })
             )
