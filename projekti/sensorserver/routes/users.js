@@ -12,17 +12,16 @@ const io = require('socket.io-client');
 var mysql = require('mysql');
 
 var con = mysql.createConnection({
-  host: "176.34.158.245",
-  user: "planttis",
-  password: "nakki1234nakki",
-  database: "sensortest"
+    host: "176.34.158.245",
+    user: "planttis",
+    password: "nakki1234nakki",
+    database: "sensortest"
 });
 
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("MARIADB IS JEBUUUUUUUUConnected!");
+con.connect(function (err) {
+    if (err) throw err;
+    console.log("MARIADB IS JEBUUUUUUUUConnected!");
 });
-
 
 
 //Establish websocket to orangepi host server. as a client
@@ -34,32 +33,30 @@ var socket = io.connect("http://192.168.35.68:3000/", {
 socket.on('connect', function () {
     console.log('connected to lan network port:3000');
     socket.on('serialdata', function (data) {
-	    console.log(data);
-	    console.log(typeof data);
 
-	    //TEE DATAN KÄSITTELY
+        //TEE DATAN KÄSITTELY
         var dataHandled = data.split(" ");
         console.log(dataHandled);
+        var valo = parseInt(dataHandled[0]);
+        var hum = parseFloat(dataHandled[1]);
+        var lampo = parseFloat(dataHandled[2]);
+        var kosteus = parseInt(dataHandled[3]);
+
         //Test insert with hard coded values
-	    con.query("INSERT INTO sensor (id, light, humidity, temp, moisture) VALUES (0, 80, 55.5, 30, 30)", (err)=>{
-	    	if(err) throw err;
-	    	console.log("Data send happily to MariaDb");
-	    } );
+        con.query("INSERT INTO sensor (id, light, humidity, temp, moisture) VALUES (0 , ?, ?, ?, ?)", [valo, hum, lampo, kosteus], (err) => {
+            if (err) throw err;
+        });
 
 
     });
 });
 
 
-
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-console.log("pööö");		
+    console.log("pööö");
 
-    });
-
-
-
+});
 
 
 router.post('/', (req, res) => {
