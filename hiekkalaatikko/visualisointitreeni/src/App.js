@@ -21,7 +21,7 @@ class App extends Component {
                     return response.json()
                 }
                 else {
-                    throw new Error('something went wrong')
+                    throw new Error('well, this is awkward...')
                 }
             })
             //suodatetaan tulokset (jos halutaan?)
