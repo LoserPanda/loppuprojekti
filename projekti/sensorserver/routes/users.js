@@ -8,6 +8,22 @@ const Plant = require('../Schemas/Plant');
 const ToDo = require('../Schemas/ToDo');
 const User = require('../Schemas/User');
 
+const io = require('socket.io-client');
+
+//Establish connection to orangepi host
+var socket = io.connect("http://192.168.35.68:3000/", {
+    reconnection: true
+});
+
+//TODO DB Bind
+socket.on('connect', function () {
+    console.log('connected to lan network port:3000');
+    socket.on('serialdata', function (data) {
+	    console.log(data);
+    });
+});
+
+
 mongoose.connect(db, {useNewUrlParser: true}).then(() => {
         console.log('Database is connected')
     },
@@ -17,8 +33,13 @@ mongoose.connect(db, {useNewUrlParser: true}).then(() => {
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    res.send('respond with a resource');
-});
+console.log("pööö");		
+
+    });
+
+
+
+
 
 router.post('/', (req, res) => {
     const user = new User(req.body);
