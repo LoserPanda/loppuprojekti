@@ -11,11 +11,7 @@ const User = require('../Schemas/User');
 const io = require('socket.io-client');
 var mysql = require('mysql');
 
-var con = mysql.createConnection({
-    host: "176.34.158.245",
-    user: "planttis",
-    password: "nakki1234nakki",
-    database: "sensortest"
+var con = mysql.createConnection(db{
 });
 
 con.connect(function (err) {
